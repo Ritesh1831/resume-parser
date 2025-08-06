@@ -32,11 +32,6 @@ except OSError:
 
 
 class ResumeParser:
-    """
-    A class to parse resume files (PDF and DOCX) and extract key information.
-    This version is adapted for Google Colab with improved extraction logic
-    and NLTK integration, excluding LinkedIn URL extraction.
-    """
     def __init__(self, file_content, file_extension):
         """
         Initializes the parser with the content of the uploaded file.
@@ -54,10 +49,6 @@ class ResumeParser:
         }
 
     def _read_file(self):
-        """
-        Reads a resume file from its byte content.
-        Handles both PDF and DOCX formats.
-        """
         if self.file_extension.lower() == ".pdf":
             with fitz.open(stream=self.file_content, filetype="pdf") as doc:
                 text = ""
@@ -74,9 +65,6 @@ class ResumeParser:
             raise ValueError("Unsupported file format. Please provide a .pdf or .docx file.")
 
     def parse(self):
-        """
-        Parses the resume text and extracts all the required information.
-        """
         print("Parsing resume...")
         self._extract_name()
         self._extract_contact_info()
@@ -85,12 +73,7 @@ class ResumeParser:
         return self.data
 
     def _extract_name(self):
-        """
-        Extracts the name. Prioritizes text at the very top, then looks for PERSON entities
-        using spaCy, and finally uses NLTK as a fallback.
-        """
-        
-        lines = [line.strip() for line in self.text.split('\n') if line.strip()]
+       lines = [line.strip() for line in self.text.split('\n') if line.strip()]
         if lines:
             for i in range(min(5, len(lines))): # Check first 5 lines
                 if len(lines[i].split()) >= 2 and len(lines[i].split()) <= 4 and (lines[i].isupper() or lines[i].istitle()):
@@ -152,9 +135,6 @@ class ResumeParser:
 
 
     def _extract_skills(self):
-        """
-        Extracts skills by matching a predefined list of keywords against the resume text.
-        """
         SKILLS_LIST = [
             "python", "java", "c++", "c#", "javascript", "react", "angular", "node.js",
             "sql", "nosql", "mongodb", "mysql", "postgresql", "docker", "kubernetes",
@@ -218,11 +198,6 @@ class ResumeParser:
         self.data["skills"] = sorted(list(found_skills)) 
 
     def _extract_education(self):
-        """
-        Extracts education details by looking for a dedicated 'Education' section
-        and then parsing lines within that section for degree.
-        Focuses on extracting only the degree name as requested.
-        """
         education_section_start = -1
         match = re.search(r"\n\s*Education\s*\n", self.text, re.IGNORECASE)
         if match:
