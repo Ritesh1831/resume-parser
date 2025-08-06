@@ -9,15 +9,22 @@ nltk.download('averaged_perceptron_tagger_eng')
 
 
 import re
-import spacy
 from docx import Document
 import fitz  
 import io
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.tag import pos_tag
 from nltk.chunk import ne_chunk
-import en_core_web_sm
-nlp = en_core_web_sm.load()
+import spacy
+import subprocess
+import importlib.util
+
+model_name = "en_core_web_sm"
+if importlib.util.find_spec(model_name) is None:
+    subprocess.run(["python", "-m", "spacy", "download", model_name])
+
+nlp = spacy.load(model_name)
+
 
 
 class ResumeParser:
