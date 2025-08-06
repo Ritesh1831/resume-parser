@@ -1,0 +1,5 @@
+streamlit
+spacy
+nltk
+python-docx
+PyMuPDF==1.22.0
