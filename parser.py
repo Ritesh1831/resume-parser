@@ -16,8 +16,9 @@ import io
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.tag import pos_tag
 from nltk.chunk import ne_chunk
+import en_core_web_sm
+nlp = en_core_web_sm.load()
 
-nlp = spacy.load("en_core_web_sm")
 
 class ResumeParser:
     """
