@@ -1,5 +1,5 @@
 streamlit
-spacy
+spacy==3.7.2
 nltk
 python-docx
 PyMuPDF==1.22.0
