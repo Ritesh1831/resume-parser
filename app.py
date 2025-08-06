@@ -17,9 +17,7 @@ if uploaded_file is not None:
             extracted_data = parser.parse()
 
         st.success("✅ Resume parsed successfully!")
-
-        st.subheader("✏️ Editable Fields (Auto-filled or Manual Input)")
-
+        
         name = st.text_input("👤 Name", extracted_data.get("name", ""))
         email = st.text_input("📧 Email", extracted_data.get("email", ""))
         education = st.text_area("🎓 Education (Separate each degree with a new line)", "\n".join(extracted_data.get("education", [])))
