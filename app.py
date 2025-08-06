@@ -20,6 +20,7 @@ if uploaded_file is not None:
         
         name = st.text_input("👤 Name", extracted_data.get("name", ""))
         email = st.text_input("📧 Email", extracted_data.get("email", ""))
+        contact_number = st.text_input("📞 Contact Number", extracted_data.get("contact_number", ""))
         education = st.text_area("🎓 Education (Separate each degree with a new line)", "\n".join(extracted_data.get("education", [])))
         skills = st.text_area("🛠️ Skills (Separate with commas)", ", ".join(extracted_data.get("skills", [])))
 
@@ -29,6 +30,7 @@ if uploaded_file is not None:
             st.json({
                 "name": name,
                 "email": email,
+                "contact_number": contact_number,
                 "education": [line.strip() for line in education.split('\n') if line.strip()],
                 "skills": [skill.strip() for skill in skills.split(',') if skill.strip()]
             })
